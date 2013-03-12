@@ -1,6 +1,12 @@
 xrdpkWrapper <- 
-   function(data.exp, run, override = FALSE, 
-            kerpk = 1, fitmaxiter = 50, gam = 1.0, scl.factor = 1.2, maxwdth=5.0) { 
+   function(data.exp, 
+            run, 
+            override = FALSE, 
+            kerpk = 1, 
+            fitmaxiter = 50, 
+            gam = 1.0, 
+            scl.factor = 1.2, 
+            maxwdth = 5.0) { 
       
    print("... Started xrdpkWrapper")
       
