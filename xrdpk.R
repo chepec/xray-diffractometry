@@ -1,7 +1,7 @@
 xrdpk <- 
-   function(xrd.exp, kerpk = 1, fitmaxiter = 50, gam = 1.0, scl.factor = 1.2, maxwdth=5.0) {
+   function(xrd.exp, kerpk = 1, fitmaxiter = 50, gam = 1.0, scl.factor = 1.2, tau = 2.5, maxwdth = 5.0) {
    
-   xrd.base <- baselinefit(xrd.exp, tau=2.5, gam=gam, scl.factor=scl.factor, maxwdth=maxwdth)
+   xrd.base <- baselinefit(xrd.exp, tau = tau, gam = gam, scl.factor = scl.factor, maxwdth = maxwdth)
    
    # This loop deals with the output from baselinefit()
    # It makes a "melted" dataframe in long form for each 
@@ -63,6 +63,8 @@ xrdpk <-
          xrd.fit.parpk <- rbind(xrd.fit.parpk,
             data.frame(peak   = factor(xrd.fit[[s]]$intnr),
                        kernel = factor(kernel),
+                       # Combination of peak and kernel (for easier id of unique kernels)
+                       unique_id = factor(paste(factor(peaks[s]), factor(kernel), sep = "-")),
                        x      = xrd.fit[[s]]$parpks[kernel, "loc"],
                        height = xrd.fit[[s]]$parpks[kernel, "height"],
                        area   = xrd.fit[[s]]$parpks[kernel, "intens"],
@@ -73,6 +75,8 @@ xrdpk <-
          xrd.fit.fitpk <- rbind(xrd.fit.fitpk, 
             data.frame(peak = factor(peaks[s]),
                        kernel = factor(kernel),
+                       # Combination of peak and kernel (for easier id of unique kernels)
+                       unique_id = factor(paste(factor(peaks[s]), factor(kernel), sep = "-")),
                        x = xrd.fit[[s]]$x,
                        y = xrd.fit[[s]]$fitpk[kernel, ]))
       }
